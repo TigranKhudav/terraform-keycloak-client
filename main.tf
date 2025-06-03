@@ -51,4 +51,5 @@ resource "keycloak_openid_client_service_account_realm_role" "this" {
   realm_id                = var.realm_id
   service_account_user_id = keycloak_openid_client.this.service_account_user_id
   role                    = each.value
+  depends_on = [ keycloak_openid_client.this ]
 }
