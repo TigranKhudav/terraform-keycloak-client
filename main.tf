@@ -53,8 +53,7 @@ data "keycloak_openid_client" "client_data" {
 
 # Attach roles to the service account
 resource "keycloak_openid_client_service_account_realm_role" "this" {
-  count                    = length(var.roles) > 0 ? 1 : 0
-  for_each                 = toset(var.roles)
+  for_each                 = length(var.roles) > 0 ? toset(var.roles) : []
   realm_id                 = var.realm_id
   service_account_user_id  = data.keycloak_openid_client.client_data.service_account_user_id
   role                     = each.value
