@@ -11,3 +11,8 @@ variable "roles" {
   type        = list(string)
   default     = []
 }
+variable "client_secret" {
+  description = "Keycloak client secret for Kafka"
+  type        = number
+  default     = null
+}

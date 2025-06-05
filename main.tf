@@ -11,7 +11,7 @@ resource "keycloak_openid_client" "this" {
   client_id                                  = var.client_id
   client_offline_session_idle_timeout        = null
   client_offline_session_max_lifespan        = null
-  client_secret                              = null
+  client_secret                              = var.client_secret
   client_session_idle_timeout                = null
   client_session_max_lifespan                = null
   consent_required                           = false
@@ -51,5 +51,5 @@ resource "keycloak_openid_client_service_account_realm_role" "this" {
   realm_id                = var.realm_id
   service_account_user_id = keycloak_openid_client.this.service_account_user_id
   role                    = each.value
-  depends_on = [ keycloak_openid_client.this ]
+  depends_on              = [keycloak_openid_client.this]
 }
