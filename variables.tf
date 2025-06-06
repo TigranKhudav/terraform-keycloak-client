@@ -13,6 +13,6 @@ variable "roles" {
 }
 variable "client_secret" {
   description = "Keycloak client secret for Kafka"
-  type        = number
+  type        = string
   default     = null
 }
