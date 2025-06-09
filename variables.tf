@@ -141,6 +141,21 @@ variable "name" {
   type        = string
   default     = null
 }
+variable "oauth2_device_code_lifespan" {
+  description = "Keycloak client secret for Kafka"
+  type        = string
+  default     = null
+}
+variable "oauth2_device_polling_interval" {
+  description = "Keycloak client secret for Kafka"
+  type        = string
+  default     = null
+}
+variable "pkce_code_challenge_method" {
+  description = "Keycloak client secret for Kafka"
+  type        = string
+  default     = null
+}
 variable "exclude_session_state_from_auth_response" {
   description = "Keycloak client secret for Kafka"
   type        = string

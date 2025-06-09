@@ -28,12 +28,12 @@ resource "keycloak_openid_client" "this" {
   full_scope_allowed                         = var.full_scope_allowed
   implicit_flow_enabled                       = var.implicit_flow_enabled
   import                                     = var.import
-  login_theme                                = null
-  name                                       = null
+  login_theme                                = var.login_theme
+  name                                       = var.name
   oauth2_device_authorization_grant_enabled  = var.oauth2_device_authorization_grant_enabled
-  oauth2_device_code_lifespan                = null
-  oauth2_device_polling_interval             = null
-  pkce_code_challenge_method                 = null
+  oauth2_device_code_lifespan                = var.oauth2_device_code_lifespan
+  oauth2_device_polling_interval             = var.oauth2_device_polling_interval
+  pkce_code_challenge_method                 = var.pkce_code_challenge_method
   realm_id                                   = var.realm_id
   root_url                                   = null
   service_accounts_enabled                   = true
