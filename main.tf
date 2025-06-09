@@ -22,11 +22,11 @@ resource "keycloak_openid_client" "this" {
   enabled                                    = var.client_enabled
   exclude_issuer_from_auth_response          = var.exclude_issuer_from_auth_response
   exclude_session_state_from_auth_response   = var.exclude_session_state_from_auth_response
-  extra_config                                = {}
+  extra_config                               = {}
   frontchannel_logout_enabled                = var.frontchannel_logout_enabled
   frontchannel_logout_url                    = var.frontchannel_logout_url
   full_scope_allowed                         = var.full_scope_allowed
-  implicit_flow_enabled                       = var.implicit_flow_enabled
+  implicit_flow_enabled                      = var.implicit_flow_enabled
   import                                     = var.import
   login_theme                                = var.login_theme
   name                                       = var.name
@@ -35,9 +35,9 @@ resource "keycloak_openid_client" "this" {
   oauth2_device_polling_interval             = var.oauth2_device_polling_interval
   pkce_code_challenge_method                 = var.pkce_code_challenge_method
   realm_id                                   = var.realm_id
-  root_url                                   = null
-  service_accounts_enabled                   = true
-  standard_flow_enabled                      = true
+  root_url                                   = var.root_url
+  service_accounts_enabled                   = var.service_accounts_enabled
+  standard_flow_enabled                      = var.standard_flow_enabled
   use_refresh_tokens                         = var.use_refresh_tokens
   use_refresh_tokens_client_credentials      = var.use_refresh_tokens_client_credentials
   valid_post_logout_redirect_uris            = var.valid_post_logout_redirect_uris

@@ -89,7 +89,7 @@ variable "description" {
 variable "direct_access_grants_enabled" {
   description = "Keycloak client secret for Kafka"
   type        = bool
-  default     = false
+  default     = true
 }
 variable "display_on_consent_screen" {
   description = "Keycloak client secret for Kafka"
@@ -190,4 +190,19 @@ variable "web_origins" {
   description = "Keycloak client secret for Kafka"
   type        = list(string)
   default     = ["/*"]
+}
+variable "root_url" {
+  description = "Keycloak client secret for Kafka"
+  type        = string
+  default     = null
+}
+variable "service_accounts_enabled" {
+  description = "Keycloak client secret for Kafka"
+  type        = bool
+  default     = true
+}
+variable "standard_flow_enabled" {
+  description = "Keycloak client secret for Kafka"
+  type        = bool
+  default     = true
 }
