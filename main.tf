@@ -17,20 +17,20 @@ resource "keycloak_openid_client" "this" {
   consent_required                           = false
   consent_screen_text                        = null
   description                                = null
-  direct_access_grants_enabled               = false
+  direct_access_grants_enabled               = var.direct_access_grants_enabled
   display_on_consent_screen                  = false
   enabled                                    = true
   exclude_issuer_from_auth_response          = null
   exclude_session_state_from_auth_response   = null
   extra_config                               = {}
-  frontchannel_logout_enabled                = true
+  frontchannel_logout_enabled                = var.frontchannel_logout_enabled
   frontchannel_logout_url                    = null
   full_scope_allowed                         = true
   implicit_flow_enabled                      = true
   import                                     = false
   login_theme                                = null
   name                                       = null
-  oauth2_device_authorization_grant_enabled  = false
+  oauth2_device_authorization_grant_enabled  = var.oauth2_device_authorization_grant_enabled
   oauth2_device_code_lifespan                = null
   oauth2_device_polling_interval             = null
   pkce_code_challenge_method                 = null
@@ -38,11 +38,11 @@ resource "keycloak_openid_client" "this" {
   root_url                                   = null
   service_accounts_enabled                   = true
   standard_flow_enabled                      = true
-  use_refresh_tokens                         = false
+  use_refresh_tokens                         = var.use_refresh_tokens
   use_refresh_tokens_client_credentials      = false
-  valid_post_logout_redirect_uris            = []
-  valid_redirect_uris                        = ["/*"]
-  web_origins                                = ["/*"]
+  valid_post_logout_redirect_uris            = var.valid_post_logout_redirect_uris
+  valid_redirect_uris                        = var.valid_redirect_uris
+  web_origins                                = var.web_origins
 }
 
 # Attach roles to the service account
