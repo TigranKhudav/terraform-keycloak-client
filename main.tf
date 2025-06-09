@@ -1,7 +1,7 @@
 resource "keycloak_openid_client" "this" {
   access_token_lifespan                      = var.access_token_lifespan
   access_type                                = "CONFIDENTIAL"
-  admin_url                                  = var.access_type
+  admin_url                                  = var.admin_url
   always_display_in_console                  = var.always_display_in_console
   backchannel_logout_revoke_offline_sessions = var.backchannel_logout_revoke_offline_sessions
   backchannel_logout_session_required        = var.backchannel_logout_session_required
