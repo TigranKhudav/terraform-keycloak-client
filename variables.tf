@@ -99,7 +99,7 @@ variable "display_on_consent_screen" {
 variable "client_enabled" {
   description = "Keycloak client secret for Kafka"
   type        = bool
-  default     = false
+  default     = true
 }
 variable "frontchannel_logout_enabled" {
   description = "Keycloak client secret for Kafka"
@@ -129,7 +129,7 @@ variable "implicit_flow_enabled" {
 variable "import" {
   description = "Keycloak client secret for Kafka"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "exclude_session_state_from_auth_response" {
