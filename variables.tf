@@ -131,7 +131,16 @@ variable "import" {
   type        = bool
   default     = false
 }
-
+variable "login_theme" {
+  description = "Keycloak client secret for Kafka"
+  type        = string
+  default     = null
+}
+variable "name" {
+  description = "Keycloak client secret for Kafka"
+  type        = string
+  default     = null
+}
 variable "exclude_session_state_from_auth_response" {
   description = "Keycloak client secret for Kafka"
   type        = string
