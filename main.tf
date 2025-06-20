@@ -56,6 +56,6 @@ resource "keycloak_openid_client_service_account_realm_role" "this" {
 resource "keycloak_role" "this" {
   for_each    = length(var.roles) > 0 ? toset(var.roles) : []
   realm_id    = var.realm_id
-  client_id   = keycloak_openid_client.this.service_account_user_id
+  client_id   = keycloak_openid_client.this.id
   name        = each.value
 }
