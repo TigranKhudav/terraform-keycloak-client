@@ -44,12 +44,18 @@ resource "keycloak_openid_client" "this" {
   valid_redirect_uris                        = var.valid_redirect_uris
   web_origins                                = var.web_origins
 }
-
 # Attach roles to the service account
 resource "keycloak_openid_client_service_account_realm_role" "this" {
-  for_each                = length(var.roles) > 0 ? toset(var.roles) : []
+  for_each                = length(var.service_accounts_roles) > 0 ? toset(var.service_accounts_roles) : []
   realm_id                = var.realm_id
   service_account_user_id = keycloak_openid_client.this.service_account_user_id
   role                    = each.value
   depends_on              = [keycloak_openid_client.this]
+}
+# Attach roles to the roles
+resource "keycloak_role" "this" {
+  for_each    = length(var.roles) > 0 ? toset(var.roles) : []
+  realm_id    = var.realm_id
+  client_id   = var.client_id
+  name        = each.value
 }
