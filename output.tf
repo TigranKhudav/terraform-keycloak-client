@@ -3,6 +3,7 @@ output "client_id" {
   description = "The ID of the S3 bucket"
 }
 output "role_id" {
-  value       = keycloak_role.this.id
-  description = "The ID of the S3 bucket"
+  value = {
+    for k, role in keycloak_role.this : k => role.id
+  }
 }
