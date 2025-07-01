@@ -59,10 +59,3 @@ resource "keycloak_role" "this" {
   client_id   = keycloak_openid_client.this.id
   name        = each.value
 }
-resource "keycloak_openid_audience_protocol_mapper" "this" {
-  count = length(var.audience) > 0 ? 1 : 0
-  realm_id  = var.realm_id
-  client_id = keycloak_openid_client.this.id
-  name      = var.audience
-  included_custom_audience = var.audience
-}
