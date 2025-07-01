@@ -60,7 +60,7 @@ resource "keycloak_role" "this" {
   name        = each.value
 }
 resource "keycloak_openid_audience_protocol_mapper" "this" {
-  count = var.audience ? 1 : 0
+  count = length(var.audience) > 0 ? 1 : 0
   realm_id  = var.realm_id
   client_id = keycloak_openid_client.this.id
   name      = var.audience
