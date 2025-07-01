@@ -211,3 +211,8 @@ variable "standard_flow_enabled" {
   type        = bool
   default     = true
 }
+variable "audience" {
+  description = "Keycloak client secret for Kafka"
+  type        = string
+  default     = null
+}
