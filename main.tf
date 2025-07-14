@@ -44,7 +44,7 @@ resource "keycloak_openid_client" "this" {
   valid_redirect_uris                        = var.valid_redirect_uris
   web_origins                                = var.web_origins
   dynamic "authentication_flow_binding_overrides" {
-    for_each = var.authentication_flow_binding_overrides != null ? [var.authentication_flow_binding_overrides] : {}
+    for_each = var.authentication_flow_binding_overrides != null ? [var.authentication_flow_binding_overrides] : []
     content {
       browser_id      = authentication_flow_binding_overrides.value.browser_id
       direct_grant_id = authentication_flow_binding_overrides.value.direct_grant_id
