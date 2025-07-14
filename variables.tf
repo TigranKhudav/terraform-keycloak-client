@@ -129,7 +129,7 @@ variable "full_scope_allowed" {
 variable "implicit_flow_enabled" {
   description = "Keycloak client secret for Kafka"
   type        = bool
-  default     = true
+  default     = false
 }
 variable "import" {
   description = "Keycloak client secret for Kafka"
@@ -210,4 +210,13 @@ variable "standard_flow_enabled" {
   description = "Keycloak client secret for Kafka"
   type        = bool
   default     = true
+}
+
+variable "authentication_flow_binding_overrides" {
+  description = "Overrides for authentication flow bindings"
+  type = object({
+    browser_id      = optional(string)
+    direct_grant_id = optional(string)
+  })
+  default = null
 }

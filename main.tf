@@ -43,6 +43,13 @@ resource "keycloak_openid_client" "this" {
   valid_post_logout_redirect_uris            = var.valid_post_logout_redirect_uris
   valid_redirect_uris                        = var.valid_redirect_uris
   web_origins                                = var.web_origins
+  dynamic "authentication_flow_binding_overrides" {
+    for_each = var.authentication_flow_binding_overrides != null ? [var.authentication_flow_binding_overrides] : {}
+    content {
+      browser_id      = authentication_flow_binding_overrides.value.browser_id
+      direct_grant_id = authentication_flow_binding_overrides.value.direct_grant_id
+    }
+  }
 }
 # Attach roles to the service account
 resource "keycloak_openid_client_service_account_realm_role" "this" {
@@ -54,8 +61,8 @@ resource "keycloak_openid_client_service_account_realm_role" "this" {
 }
 # Attach roles to the roles
 resource "keycloak_role" "this" {
-  for_each    = length(var.roles) > 0 ? toset(var.roles) : []
-  realm_id    = var.realm_id
-  client_id   = keycloak_openid_client.this.id
-  name        = each.value
+  for_each  = length(var.roles) > 0 ? toset(var.roles) : []
+  realm_id  = var.realm_id
+  client_id = keycloak_openid_client.this.id
+  name      = each.value
 }
