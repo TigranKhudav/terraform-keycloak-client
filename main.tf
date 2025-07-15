@@ -1,6 +1,6 @@
 resource "keycloak_openid_client" "this" {
   access_token_lifespan                      = var.access_token_lifespan
-  access_type                                = "CONFIDENTIAL"
+  access_type                                = var.access_type
   admin_url                                  = var.admin_url
   always_display_in_console                  = var.always_display_in_console
   backchannel_logout_revoke_offline_sessions = var.backchannel_logout_revoke_offline_sessions
@@ -48,6 +48,13 @@ resource "keycloak_openid_client" "this" {
     content {
       browser_id      = authentication_flow_binding_overrides.value.browser_id
       direct_grant_id = authentication_flow_binding_overrides.value.direct_grant_id
+    }
+  }
+  dynamic "authorization" {
+    for_each = var.authorization != null ? [var.authorization] : []
+    content {
+      browser_id      = authorization.value.policy_enforcement_mode
+      direct_grant_id = authorization.value.decision_strategy
     }
   }
 }

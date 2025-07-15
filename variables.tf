@@ -211,7 +211,6 @@ variable "standard_flow_enabled" {
   type        = bool
   default     = true
 }
-
 variable "authentication_flow_binding_overrides" {
   description = "Overrides for authentication flow bindings"
   type = object({
@@ -219,4 +218,18 @@ variable "authentication_flow_binding_overrides" {
     direct_grant_id = optional(string)
   })
   default = null
+}
+variable "authorization" {
+  description = "Overrides for authorization flow bindings"
+  type = object({
+    policy_enforcement_mode = optional(string)
+    decision_strategy       = optional(string)
+  })
+  default = null
+}
+variable "access_type" {
+  description = "Access type for the client"
+  type        = string
+  default     = "CONFIDENTIAL"
+
 }
