@@ -53,8 +53,8 @@ resource "keycloak_openid_client" "this" {
   dynamic "authorization" {
     for_each = var.authorization != null ? [var.authorization] : []
     content {
-      browser_id      = authorization.value.policy_enforcement_mode
-      direct_grant_id = authorization.value.decision_strategy
+      policy_enforcement_mode      = authorization.value.policy_enforcement_mode
+      decision_strategy            = authorization.value.decision_strategy
     }
   }
 }
