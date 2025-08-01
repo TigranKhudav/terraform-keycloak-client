@@ -184,17 +184,17 @@ variable "use_refresh_tokens_client_credentials" {
 variable "valid_post_logout_redirect_uris" {
   description = "Keycloak client secret for Kafka"
   type        = list(string)
-  default     = []
+  default     = null
 }
 variable "valid_redirect_uris" {
   description = "Keycloak client secret for Kafka"
   type        = list(string)
-  default     = ["/*"]
+  default     = null
 }
 variable "web_origins" {
   description = "Keycloak client secret for Kafka"
   type        = list(string)
-  default     = ["/*"]
+  default     = null
 }
 variable "root_url" {
   description = "Keycloak client secret for Kafka"
