@@ -249,7 +249,6 @@ variable "user_session_note_mappers" {
   type = map(object({
     claim_name          = string
     session_note        = optional(string)
-    session_note_label  = optional(string)
     claim_value_type    = optional(string, "String")
     add_to_access_token = optional(bool, false)
     add_to_id_token     = optional(bool, false)
