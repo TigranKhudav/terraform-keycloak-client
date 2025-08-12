@@ -80,7 +80,7 @@ resource "keycloak_role" "this" {
 # -------------------------
 # Audience Protocol Mappers
 # -------------------------
-resource "keycloak_openid_audience_protocol_mapper" "audience" {
+resource "keycloak_openid_audience_protocol_mapper" "this" {
   for_each  = var.audience_mappers
   realm_id  = var.realm_id
   client_id = keycloak_openid_client.this.id
@@ -96,7 +96,7 @@ resource "keycloak_openid_audience_protocol_mapper" "audience" {
 # -------------------------
 # Session Note Protocol Mappers
 # -------------------------
-resource "keycloak_openid_user_session_note_protocol_mapper" "user_session_note" {
+resource "keycloak_openid_user_session_note_protocol_mapper" "this" {
   for_each  = var.user_session_note_mappers
   realm_id  = var.realm_id
   client_id = keycloak_openid_client.this.id
