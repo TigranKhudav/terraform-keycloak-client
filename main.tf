@@ -1,3 +1,6 @@
+# -------------------------
+# Keycloak Client
+# -------------------------
 resource "keycloak_openid_client" "this" {
   access_token_lifespan                      = var.access_token_lifespan
   access_type                                = var.access_type
@@ -53,8 +56,8 @@ resource "keycloak_openid_client" "this" {
   dynamic "authorization" {
     for_each = var.authorization != null ? [var.authorization] : []
     content {
-      policy_enforcement_mode      = authorization.value.policy_enforcement_mode
-      decision_strategy            = authorization.value.decision_strategy
+      policy_enforcement_mode = authorization.value.policy_enforcement_mode
+      decision_strategy       = authorization.value.decision_strategy
     }
   }
 }
@@ -72,4 +75,38 @@ resource "keycloak_role" "this" {
   realm_id  = var.realm_id
   client_id = keycloak_openid_client.this.id
   name      = each.value
+}
+
+
+# -------------------------
+# Audience Protocol Mappers
+# -------------------------
+resource "keycloak_openid_audience_protocol_mapper" "audience" {
+  for_each  = var.audience_mappers
+  realm_id  = var.realm_id
+  client_id = keycloak_openid_client.this.id
+  name      = each.key
+
+  included_custom_audience = try(each.value.included_custom_audience, null)
+  included_client_audience = try(each.value.included_client_audience, null)
+  add_to_access_token      = each.value.add_to_access_token
+  add_to_id_token          = each.value.add_to_id_token
+  depends_on               = [keycloak_openid_client.this]
+}
+
+# -------------------------
+# Session Note Protocol Mappers
+# -------------------------
+resource "keycloak_openid_user_session_note_protocol_mapper" "session_note" {
+  for_each  = var.session_note_mappers
+  realm_id  = var.realm_id
+  client_id = keycloak_openid_client.this.id
+  name      = each.key
+
+  claim_name          = each.value.claim_name
+  session_note        = each.value.session_note
+  claim_value_type    = each.value.claim_value_type
+  add_to_access_token = each.value.add_to_access_token
+  add_to_id_token     = each.value.add_to_id_token
+  depends_on          = [keycloak_openid_client.this]
 }

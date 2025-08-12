@@ -231,5 +231,27 @@ variable "access_type" {
   description = "Access type for the client"
   type        = string
   default     = "CONFIDENTIAL"
+}
 
+# Map of audience mappers
+variable "audience_mappers" {
+  type = map(object({
+    included_custom_audience = optional(string)
+    included_client_audience = optional(string)
+    add_to_access_token      = optional(bool, true)
+    add_to_id_token          = optional(bool, true)
+  }))
+  default = {}
+}
+
+# Map of user session note mappers
+variable "session_note_mappers" {
+  type = map(object({
+    claim_name          = string
+    session_note        = string
+    claim_value_type    = optional(string, "String")
+    add_to_access_token = optional(bool, false)
+    add_to_id_token     = optional(bool, false)
+  }))
+  default = {}
 }
