@@ -105,6 +105,7 @@ resource "keycloak_openid_user_session_note_protocol_mapper" "user_session_note"
 
   claim_name          = each.value.claim_name
   session_note        = each.value.session_note
+  session_note_label  = each.value.session_note_label
   claim_value_type    = each.value.claim_value_type
   add_to_access_token = each.value.add_to_access_token
   add_to_id_token     = each.value.add_to_id_token
