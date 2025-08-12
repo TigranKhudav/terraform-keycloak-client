@@ -209,7 +209,7 @@ variable "service_accounts_enabled" {
 variable "standard_flow_enabled" {
   description = "Keycloak client secret for Kafka"
   type        = bool
-  default     = true
+  default     = false
 }
 variable "authentication_flow_binding_overrides" {
   description = "Overrides for authentication flow bindings"
@@ -245,7 +245,7 @@ variable "audience_mappers" {
 }
 
 # Map of user session note mappers
-variable "session_note_mappers" {
+variable "user_session_note_mappers" {
   type = map(object({
     claim_name          = string
     session_note        = string

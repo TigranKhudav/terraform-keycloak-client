@@ -97,8 +97,8 @@ resource "keycloak_openid_audience_protocol_mapper" "audience" {
 # -------------------------
 # Session Note Protocol Mappers
 # -------------------------
-resource "keycloak_openid_user_session_note_protocol_mapper" "session_note" {
-  for_each  = var.session_note_mappers
+resource "keycloak_openid_user_session_note_protocol_mapper" "user_session_note" {
+  for_each  = var.user_session_note_mappers
   realm_id  = var.realm_id
   client_id = keycloak_openid_client.this.id
   name      = each.key
