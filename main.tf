@@ -109,3 +109,22 @@ resource "keycloak_openid_user_session_note_protocol_mapper" "this" {
   add_to_id_token     = each.value.add_to_id_token
   depends_on          = [keycloak_openid_client.this]
 }
+
+# -------------------------
+# User Attribute Protocol Mappers
+# -------------------------
+resource "keycloak_openid_user_attribute_protocol_mapper" "this" {
+  for_each             = var.user_attribute_mappers
+  realm_id             = var.realm_id
+  client_id            = keycloak_openid_client.this.id
+  name                 = each.key
+  claim_name           = each.value.claim_name
+  user_attribute       = each.value.user_attribute
+  claim_value_type     = each.value.claim_value_type
+  add_to_access_token  = each.value.add_to_access_token
+  add_to_id_token      = each.value.add_to_id_token
+  aggregate_attributes = each.value.aggregate_attributes
+  add_to_userinfo      = each.value.add_to_userinfo
+  multivalued          = each.value.multivalued
+  depends_on           = [keycloak_openid_client.this]
+}

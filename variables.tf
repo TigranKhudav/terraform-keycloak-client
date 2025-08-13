@@ -255,3 +255,20 @@ variable "user_session_note_mappers" {
   }))
   default = {}
 }
+
+
+# Map of user attribute mappers
+variable "user_attribute_mappers" {
+  type = map(object({
+    claim_name          = string
+    user_attribute      = string
+    claim_value_type    = optional(string, "String")
+    add_to_access_token = optional(bool, false)
+    add_to_id_token     = optional(bool, false)
+    aggregate_attributes = optional(bool, false)
+    add_to_userinfo     = optional(bool, false)
+    multivalued         = optional(bool, false)
+  }))
+  default = {}
+}
+
