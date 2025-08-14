@@ -128,3 +128,18 @@ resource "keycloak_openid_user_attribute_protocol_mapper" "this" {
   multivalued          = each.value.multivalued
   depends_on           = [keycloak_openid_client.this]
 }
+# -------------------------
+# Group Attribute Protocol Mappers
+# -------------------------
+resource "keycloak_openid_group_membership_protocol_mapper" "this" {
+  for_each            = var.group_attribute_mappers
+  realm_id            = var.realm_id
+  client_id           = keycloak_openid_client.this.id
+  name                = each.key
+  claim_name          = each.value.claim_name
+  full_path           = each.value.full_path
+  add_to_id_token     = each.value.add_to_id_token
+  add_to_access_token = each.value.add_to_access_token
+  add_to_userinfo     = each.value.add_to_userinfo
+  depends_on          = [keycloak_openid_client.this]
+}

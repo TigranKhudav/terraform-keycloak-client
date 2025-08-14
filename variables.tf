@@ -272,3 +272,15 @@ variable "user_attribute_mappers" {
   default = {}
 }
 
+# Map of group attribute mappers
+variable "group_attribute_mappers" {
+  type = map(object({
+    claim_name          = string
+    full_path           = optional(bool, true)
+    add_to_access_token = optional(bool, true)
+    add_to_id_token     = optional(bool, true)
+    add_to_userinfo     = optional(bool, true)
+  }))
+  default = {}
+}
+
