@@ -284,3 +284,17 @@ variable "group_attribute_mappers" {
   default = {}
 }
 
+# Map of user realm role mappers
+variable "user_realm_role_mappers" {
+  type = map(object({
+    claim_name          = string
+    claim_value_type    = optional(string, "String")
+    add_to_access_token = optional(bool, true)
+    add_to_id_token     = optional(bool, true)
+    add_to_userinfo     = optional(bool, true)
+    add_to_token_introspection = optional(bool, true)
+    multivalued         = optional(bool, false)
+    realm_role_prefix   = optional(string, "")
+  }))
+  default = {}
+}
