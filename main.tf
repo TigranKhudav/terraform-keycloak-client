@@ -63,7 +63,7 @@ resource "keycloak_openid_client" "this" {
 }
 # Attach roles to the service account
 resource "keycloak_openid_client_service_account_realm_role" "this" {
-  for_each                = { for r in var.service_accounts_roles : r => r }
+  for_each                = { for idx, r in var.service_accounts_roles : idx => r }
   realm_id                = var.realm_id
   service_account_user_id = keycloak_openid_client.this.service_account_user_id
   role                    = each.value
