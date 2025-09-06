@@ -3,7 +3,5 @@ output "client_id" {
   description = "The ID of the S3 bucket"
 }
 output "role_id" {
-  value = {
-    for k, role in keycloak_role.this : k => role.id
-  }
+  value = try({ for k, role in keycloak_role.this : k => role.id }, {})
 }
