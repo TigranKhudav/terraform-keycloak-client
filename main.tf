@@ -65,6 +65,13 @@ resource "keycloak_openid_client" "this" {
       keep_defaults                    = authorization.value.keep_defaults
     }
   }
+
+  lifecycle {
+    # Authorization services are often enabled out-of-band in Keycloak. Don't
+    # remove or churn the block when a caller doesn't declare it; manage it on
+    # create only. Remove this if you want Terraform to fully own authorization.
+    ignore_changes = [authorization]
+  }
 }
 # Attach roles to the service account
 # Keyed by role name (not list index) so instance addresses are stable and

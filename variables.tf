@@ -308,7 +308,7 @@ variable "authorization" {
   type = object({
     policy_enforcement_mode          = optional(string)
     decision_strategy                = optional(string)
-    allow_remote_resource_management = optional(bool, false)
+    allow_remote_resource_management = optional(bool, true)
     keep_defaults                    = optional(bool, false)
   })
   default = null
@@ -339,7 +339,7 @@ variable "user_session_note_mappers" {
     claim_value_type           = optional(string, "String")
     add_to_access_token        = optional(bool, false)
     add_to_id_token            = optional(bool, false)
-    add_to_token_introspection = optional(bool, false)
+    add_to_token_introspection = optional(bool, true)
   }))
   default = {}
 }
@@ -353,7 +353,7 @@ variable "user_attribute_mappers" {
     claim_value_type           = optional(string, "String")
     add_to_access_token        = optional(bool, false)
     add_to_id_token            = optional(bool, false)
-    add_to_token_introspection = optional(bool, false)
+    add_to_token_introspection = optional(bool, true)
     aggregate_attributes       = optional(bool, false)
     add_to_userinfo            = optional(bool, false)
     multivalued                = optional(bool, false)
