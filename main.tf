@@ -76,6 +76,14 @@ resource "keycloak_role" "this" {
   client_id = keycloak_openid_client.this.id
   name      = each.value
 }
+# Attach this client's own client roles to its own service account
+resource "keycloak_openid_client_service_account_role" "this" {
+  for_each                = toset(var.service_accounts_client_roles)
+  realm_id                = var.realm_id
+  service_account_user_id = keycloak_openid_client.this.service_account_user_id
+  client_id               = keycloak_openid_client.this.id
+  role                    = keycloak_role.this[each.value].name
+}
 # -------------------------
 # Audience Protocol Mappers
 # -------------------------

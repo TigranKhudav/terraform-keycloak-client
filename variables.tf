@@ -11,6 +11,11 @@ variable "service_accounts_roles" {
   type        = list(string)
   default     = []
 }
+variable "service_accounts_client_roles" {
+  description = "Names of this client's own client roles (from var.roles) to assign to its own service account"
+  type        = list(string)
+  default     = []
+}
 variable "roles" {
   description = "Keycloak client secret for Kafka"
   type        = list(string)
