@@ -8,7 +8,7 @@ role assignments, client scopes, and protocol mappers — in a single module cal
 | Name     | Version    |
 |----------|------------|
 | Terraform | >= 1.3 (uses `optional()` object attributes) |
-| `keycloak/keycloak` provider | >= 5.8.0 |
+| `keycloak/keycloak` provider | >= 5.10.0 |
 
 ## Usage
 
@@ -17,7 +17,7 @@ role assignments, client scopes, and protocol mappers — in a single module cal
 ```hcl
 module "my_service" {
   source  = "TigranKhudav/client/keycloak"
-  version = "0.4.0"
+  version = "0.5.0"
 
   client_id = "my-service"
   realm_id  = keycloak_realm.internal.id
@@ -29,7 +29,7 @@ module "my_service" {
 ```hcl
 module "my_service" {
   source  = "TigranKhudav/client/keycloak"
-  version = "0.4.0"
+  version = "0.5.0"
 
   client_id                    = "my-service"
   client_secret                = var.my_service_client_secret
@@ -45,7 +45,7 @@ module "my_service" {
 ```hcl
 module "portal" {
   source  = "TigranKhudav/client/keycloak"
-  version = "0.4.0"
+  version = "0.5.0"
 
   client_id             = "portal"
   realm_id              = keycloak_realm.internal.id
@@ -65,7 +65,7 @@ producer/consumer roles emitted by the companion `TigranKhudav/kafka/keycloak` m
 ```hcl
 module "consumer" {
   source  = "TigranKhudav/client/keycloak"
-  version = "0.4.0"
+  version = "0.5.0"
 
   client_id = "consumer"
   realm_id  = keycloak_realm.internal.id
@@ -88,7 +88,7 @@ dependency cycle).
 ```hcl
 module "crm_tariff" {
   source  = "TigranKhudav/client/keycloak"
-  version = "0.4.0"
+  version = "0.5.0"
 
   client_id = "ceci.crm.tariff"
   realm_id  = keycloak_realm.internal.id
@@ -99,6 +99,39 @@ module "crm_tariff" {
 ```
 
 > `service_accounts_client_roles` must be a subset of `roles`.
+
+### Assign another client's roles to this service account
+
+Use `service_accounts_role_ids` to grant roles owned by **other** clients to this
+client's service account. Pass role **IDs**: another module instance exposes them via
+its `role_id` output, and built-in client roles (e.g. `realm-management`) can be
+looked up with the `keycloak_role` data source.
+
+```hcl
+data "keycloak_openid_client" "realm_management" {
+  realm_id  = keycloak_realm.internal.id
+  client_id = "realm-management"
+}
+
+data "keycloak_role" "view_users" {
+  realm_id  = keycloak_realm.internal.id
+  client_id = data.keycloak_openid_client.realm_management.id
+  name      = "view-users"
+}
+
+module "worker" {
+  source  = "TigranKhudav/client/keycloak"
+  version = "0.5.0"
+
+  client_id = "worker"
+  realm_id  = keycloak_realm.internal.id
+
+  service_accounts_role_ids = [
+    module.api.role_id["reader"],      # client role created by another module instance
+    data.keycloak_role.view_users.id,  # built-in client role
+  ]
+}
+```
 
 ## Client scopes
 
@@ -190,6 +223,7 @@ user_session_note_mappers = {
 | `roles` | `list(string)` | `[]` | Client roles to create |
 | `service_accounts_roles` | `list(string)` | `[]` | Realm role names assigned to the service account |
 | `service_accounts_client_roles` | `list(string)` | `[]` | This client's own roles assigned to its service account |
+| `service_accounts_role_ids` | `list(string)` | `[]` | Role IDs from other clients assigned to its service account |
 | `default_client_scopes` | `list(string)` | `null` | Managed default scopes |
 | `optional_client_scopes` | `list(string)` | `null` | Managed optional scopes |
 | `extra_config` | `map(string)` | `{}` | Passthrough client attributes |

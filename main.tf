@@ -98,6 +98,14 @@ resource "keycloak_openid_client_service_account_role" "this" {
   client_id               = keycloak_openid_client.this.id
   role                    = keycloak_role.this[each.value].name
 }
+# Attach roles owned by OTHER clients (by role ID) to this client's service account
+resource "keycloak_user_roles" "external" {
+  count      = length(var.service_accounts_role_ids) > 0 ? 1 : 0
+  realm_id   = var.realm_id
+  user_id    = keycloak_openid_client.this.service_account_user_id
+  role_ids   = var.service_accounts_role_ids
+  exhaustive = false
+}
 # -------------------------
 # Audience Protocol Mappers
 # -------------------------

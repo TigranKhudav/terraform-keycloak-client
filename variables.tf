@@ -277,6 +277,11 @@ variable "service_accounts_client_roles" {
   type        = list(string)
   default     = []
 }
+variable "service_accounts_role_ids" {
+  description = "IDs of roles owned by other clients to assign to this client's service account, e.g. module.other.role_id[\"reader\"] or data.keycloak_role.x.id."
+  type        = list(string)
+  default     = []
+}
 
 # -------------------------
 # Client scopes
