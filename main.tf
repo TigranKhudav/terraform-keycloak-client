@@ -228,6 +228,20 @@ resource "keycloak_openid_hardcoded_claim_protocol_mapper" "this" {
 }
 
 # -------------------------
+# Generic Protocol Mappers
+# -------------------------
+resource "keycloak_generic_protocol_mapper" "this" {
+  for_each        = var.generic_protocol_mappers
+  realm_id        = var.realm_id
+  client_id       = keycloak_openid_client.this.id
+  name            = each.key
+  protocol        = each.value.protocol
+  protocol_mapper = each.value.protocol_mapper
+  config          = each.value.config
+  depends_on      = [keycloak_openid_client.this]
+}
+
+# -------------------------
 # Client Scopes (default / optional)
 # -------------------------
 resource "keycloak_openid_client_default_scopes" "this" {

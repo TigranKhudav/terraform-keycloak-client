@@ -206,6 +206,34 @@ user_session_note_mappers = {
 }
 ```
 
+### Generic protocol mappers
+
+`generic_protocol_mappers` wraps `keycloak_generic_protocol_mapper` and accepts any
+mapper type with any config keys. The map key becomes the mapper `name`; `realm_id`
+and `client_id` are supplied by the module.
+
+| Attribute | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `protocol_mapper` | `string` | n/a | Keycloak mapper type ID, e.g. `oidc-audience-mapper` (**required**) |
+| `protocol` | `string` | `"openid-connect"` | `openid-connect` or `saml`; must match the client |
+| `config` | `map(string)` | n/a | Mapper config passed to Keycloak verbatim (**required**) |
+
+```hcl
+generic_protocol_mappers = {
+  "ltb.mycar.carloan" = {
+    protocol_mapper = "oidc-audience-mapper"
+    config = {
+      "included.custom.audience"  = "ltb.mycar.carloan"
+      "access.token.claim"        = "true"
+      "id.token.claim"            = "true"
+      "introspection.token.claim" = "true"
+      "lightweight.claim"         = "false"
+      "userinfo.token.claim"      = "true"
+    }
+  }
+}
+```
+
 ## Inputs (most common)
 
 | Name | Type | Default | Description |
@@ -227,6 +255,7 @@ user_session_note_mappers = {
 | `default_client_scopes` | `list(string)` | `null` | Managed default scopes |
 | `optional_client_scopes` | `list(string)` | `null` | Managed optional scopes |
 | `extra_config` | `map(string)` | `{}` | Passthrough client attributes |
+| `generic_protocol_mappers` | `map(object)` | `{}` | Any mapper type via `keycloak_generic_protocol_mapper` |
 
 See [`variables.tf`](variables.tf) for the full set (token lifespans, logout,
 consent, device flow, mappers, etc.).

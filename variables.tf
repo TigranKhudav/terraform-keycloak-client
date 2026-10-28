@@ -424,3 +424,14 @@ variable "hardcoded_claim_mappers" {
   }))
   default = {}
 }
+
+# Generic protocol mappers (any mapper type; mirrors keycloak_generic_protocol_mapper)
+variable "generic_protocol_mappers" {
+  description = "Generic protocol mappers keyed by mapper name. protocol_mapper is the Keycloak mapper type ID (e.g. oidc-audience-mapper); protocol is openid-connect or saml; config is a key/value map passed to Keycloak verbatim."
+  type = map(object({
+    protocol_mapper = string
+    protocol        = optional(string, "openid-connect")
+    config          = map(string)
+  }))
+  default = {}
+}
